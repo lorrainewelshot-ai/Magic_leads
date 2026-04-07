@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Workplace & Life Audit — The Life Management Hub</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#f8f8f6;color:#1a1a18;line-height:1.7;font-size:16px}
+.wrap{max-width:720px;margin:0 auto;padding:2rem 1.5rem}
+.brand{display:flex;align-items:center;gap:10px;margin-bottom:2rem}
+.brand-dot{width:10px;height:10px;border-radius:50%;background:#1D9E75}
+.brand-name{font-size:13px;font-weight:500;color:#5F5E5A;letter-spacing:0.04em;text-transform:uppercase}
+.hero{margin-bottom:2rem}
+.hero h1{font-size:22px;font-weight:500;color:#1a1a18;line-height:1.3;margin-bottom:0.5rem}
+.hero p{font-size:15px;color:#5F5E5A;line-height:1.7}
+.section{margin-bottom:2rem;border:0.5px solid #d3d1c7;border-radius:12px;overflow:hidden;background:#fff}
+.section-header{padding:1rem 1.25rem;border-bottom:0.5px solid #d3d1c7;display:flex;align-items:center;gap:10px}
+.section-num{width:24px;height:24px;border-radius:50%;background:#E1F5EE;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:500;color:#0F6E56;flex-shrink:0}
+.section-title{font-size:15px;font-weight:500;color:#1a1a18}
+.section-sub{font-size:13px;color:#5F5E5A;margin-top:2px}
+.section-body{padding:1rem 1.25rem}
+.ef-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px}
+.ef-item{border:0.5px solid #d3d1c7;border-radius:8px;padding:10px 12px;cursor:pointer;transition:border-color 0.15s,background 0.15s}
+.ef-item:hover{border-color:#9FE1CB}
+.ef-item.selected{border-color:#1D9E75;background:#E1F5EE}
+.ef-item.focus-selected{border-color:#0F6E56;background:#9FE1CB}
+.ef-label{font-size:13px;font-weight:500;color:#1a1a18;margin-bottom:3px}
+.ef-desc{font-size:12px;color:#5F5E5A;line-height:1.5}
+.ef-item.selected .ef-label{color:#0F6E56}
+.ef-item.focus-selected .ef-label{color:#085041}
+.focus-badge{display:none;font-size:10px;font-weight:500;color:#085041;background:#9FE1CB;border-radius:20px;padding:2px 7px;margin-top:4px;width:fit-content}
+.ef-item.focus-selected .focus-badge{display:block}
+.audit-list{display:flex;flex-direction:column;gap:8px}
+.audit-item{display:flex;align-items:flex-start;gap:12px;padding:10px 12px;border:0.5px solid #d3d1c7;border-radius:8px}
+.audit-q{font-size:14px;color:#1a1a18;line-height:1.5;flex:1}
+.audit-q small{display:block;font-size:12px;color:#5F5E5A;margin-top:3px}
+.radio-group{display:flex;gap:6px;flex-shrink:0;margin-top:2px}
+.radio-btn{width:28px;height:28px;border-radius:50%;border:0.5px solid #B4B2A9;background:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;transition:all 0.15s;color:#5F5E5A}
+.radio-btn:hover{border-color:#1D9E75;color:#0F6E56}
+.radio-btn.yes{border-color:#1D9E75;background:#E1F5EE;color:#0F6E56}
+.radio-btn.no{border-color:#B4B2A9;background:#F1EFE8;color:#5F5E5A}
+.strat-tag{font-size:13px;padding:5px 10px;border:0.5px solid #d3d1c7;border-radius:20px;cursor:pointer;color:#5F5E5A;background:#fff;transition:all 0.15s;display:inline-block;margin:0 4px 6px 0}
+.strat-tag:hover{border-color:#9FE1CB;color:#1a1a18}
+.strat-tag.picked{border-color:#1D9E75;background:#E1F5EE;color:#0F6E56}
+.next-steps{background:#f1efe8;border-radius:12px;padding:1.25rem;margin-bottom:1.5rem}
+.ns-title{font-size:14px;font-weight:500;color:#1a1a18;margin-bottom:10px}
+.ns-empty{font-size:13px;color:#5F5E5A;font-style:italic}
+.ns-list{display:flex;flex-direction:column;gap:6px}
+.ns-pill{font-size:13px;padding:6px 10px;background:#fff;border:0.5px solid #d3d1c7;border-radius:8px;color:#1a1a18;display:flex;align-items:center;gap:8px}
+.ns-dot{width:7px;height:7px;border-radius:50%;background:#1D9E75;flex-shrink:0}
+.progress-bar{height:4px;background:#d3d1c7;border-radius:2px;margin:1.5rem 0}
+.progress-fill{height:4px;background:#1D9E75;border-radius:2px;transition:width 0.4s}
+.cta-block{border:0.5px solid #9FE1CB;border-radius:12px;padding:1.25rem;background:#E1F5EE}
+.cta-title{font-size:15px;font-weight:500;color:#085041;margin-bottom:6px}
+.cta-text{font-size:13px;color:#0F6E56;line-height:1.6;margin-bottom:12px}
+.cta-btn{display:inline-block;background:#0F6E56;color:#E1F5EE;font-size:13px;font-weight:500;padding:10px 20px;border-radius:8px;border:none;cursor:pointer;text-decoration:none}
+.cta-btn:hover{background:#085041}
+.section-intro{font-size:13px;color:#5F5E5A;margin-bottom:1rem;line-height:1.6}
+.sensory-tip{display:flex;gap:8px;padding:10px 12px;background:#f1efe8;margin-top:10px;border-left:3px solid #9FE1CB;border-radius:0 8px 8px 0}
+.sensory-tip-text{font-size:13px;color:#5F5E5A;line-height:1.5}
+.tab-row{display:flex;gap:0;border-bottom:0.5px solid #d3d1c7;margin-bottom:1rem}
+.tab{font-size:13px;padding:8px 14px;cursor:pointer;color:#5F5E5A;border-bottom:2px solid transparent;margin-bottom:-0.5px}
+.tab.active{color:#0F6E56;border-bottom-color:#1D9E75;font-weight:500}
+.tab-panel{display:none}
+.tab-panel.active{display:block}
+.strategy-cat{margin-bottom:1rem}
+.cat-label{font-size:12px;font-weight:500;color:#5F5E5A;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:8px}
+.focus-hint{font-size:12px;color:#5F5E5A;margin-top:10px;display:none}
+.footer-note{font-size:12px;color:#888780;margin-top:1.5rem;line-height:1.6}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="brand">
+    <div class="brand-dot"></div>
+    <span class="brand-name">The Life Management Hub</span>
+  </div>
+
+  <div class="hero">
+    <h1>Is your environment working against your brain?</h1>
+    <p>A short, practical audit to help you identify the specific barriers affecting your focus and task completion — and the strategies most likely to help.</p>
+    <p style="font-size:13px;color:#888780;margin-top:8px">Takes around 5–10 minutes. No formal diagnosis required.</p>
+    <div class="progress-bar"><div class="progress-fill" id="progress" style="width:0%"></div></div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">1</div>
+      <div>
+        <div class="section-title">Which challenges feel most familiar?</div>
+        <div class="section-sub">Select all that apply, then mark your biggest one</div>
+      </div>
+    </div>
+    <div class="section-body">
+      <p class="section-intro">These are common presentations of executive function difficulty. You don't need a diagnosis — if it sounds like you, select it.</p>
+      <div class="ef-grid" id="ef-grid">
+        <div class="ef-item" data-id="ti" onclick="toggleEF(this)">
+          <div class="ef-label">Task initiation</div>
+          <div class="ef-desc">Getting started is the hardest part, even when you know what to do</div>
+          <div class="focus-badge">Primary challenge</div>
+        </div>
+        <div class="ef-item" data-id="focus" onclick="toggleEF(this)">
+          <div class="ef-label">Sustaining focus</div>
+          <div class="ef-desc">Starting feels okay but staying on task until it's done is a constant battle</div>
+          <div class="focus-badge">Primary challenge</div>
+        </div>
+        <div class="ef-item" data-id="time" onclick="toggleEF(this)">
+          <div class="ef-label">Time management</div>
+          <div class="ef-desc">Time blindness, missed deadlines, or always running late</div>
+          <div class="focus-badge">Primary challenge</div>
+        </div>
+        <div class="ef-item" data-id="org" onclick="toggleEF(this)">
+          <div class="ef-label">Organisation</div>
+          <div class="ef-desc">Losing things, struggling to keep on top of information or physical spaces</div>
+          <div class="focus-badge">Primary challenge</div>
+        </div>
+        <div class="ef-item" data-id="plan" onclick="toggleEF(this)">
+          <div class="ef-label">Planning & prioritising</div>
+          <div class="ef-desc">Not knowing where to start, or defaulting to easy tasks when urgent ones wait</div>
+          <div class="focus-badge">Primary challenge</div>
+        </div>
+        <div class="ef-item" data-id="wm" onclick="toggleEF(this)">
+          <div class="ef-label">Working memory</div>
+          <div class="ef-desc">Forgetting what you were doing mid-task, losing information as you use it</div>
+          <div class="focus-badge">Primary challenge</div>
+        </div>
+        <div class="ef-item" data-id="er" onclick="toggleEF(this)">
+          <div class="ef-label">Emotional regulation</div>
+          <div class="ef-desc">Big reactions to stress, feedback, or unexpected changes</div>
+          <div class="focus-badge">Primary challenge</div>
+        </div>
+        <div class="ef-item" data-id="imp" onclick="toggleEF(this)">
+          <div class="ef-label">Impulse control</div>
+          <div class="ef-desc">Jumping to low-priority tasks, difficulty thinking before acting</div>
+          <div class="focus-badge">Primary challenge</div>
+        </div>
+      </div>
+      <p class="focus-hint" id="focus-hint">Now tap again on your single biggest challenge to mark it as primary.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">2</div>
+      <div>
+        <div class="section-title">Your physical & sensory environment</div>
+        <div class="section-sub">Quick audit of your workspace</div>
+      </div>
+    </div>
+    <div class="section-body">
+      <p class="section-intro">Sensory factors significantly affect focus and task initiation. Answering yes means this is currently in place for you.</p>
+      <div class="audit-list">
+        <div class="audit-item" data-key="sound">
+          <div class="audit-q">Are you regularly interrupted by noise — chatter, equipment, office traffic?<small>Background noise raises your sensory load and makes initiating or sustaining tasks harder</small></div>
+          <div class="radio-group"><button class="radio-btn" onclick="setAudit(this,'sound','yes')">Yes</button><button class="radio-btn" onclick="setAudit(this,'sound','no')">No</button></div>
+        </div>
+        <div class="audit-item" data-key="visual">
+          <div class="audit-q">Is there a lot of visual clutter or movement in your workspace?<small>Peripheral movement and desk clutter pull attention away from the task at hand</small></div>
+          <div class="radio-group"><button class="radio-btn" onclick="setAudit(this,'visual','yes')">Yes</button><button class="radio-btn" onclick="setAudit(this,'visual','no')">No</button></div>
+        </div>
+        <div class="audit-item" data-key="light">
+          <div class="audit-q">Does your workspace have access to natural light or a daylight lamp?<small>Lighting quality affects alertness and sustained attention throughout the day</small></div>
+          <div class="radio-group"><button class="radio-btn" onclick="setAudit(this,'light','yes')">Yes</button><button class="radio-btn" onclick="setAudit(this,'light','no')">No</button></div>
+        </div>
+        <div class="audit-item" data-key="retreat">
+          <div class="audit-q">Can you access a quiet space when you need to reduce sensory input?<small>Having a retreat option reduces the compounding effect of sensory overload on focus</small></div>
+          <div class="radio-group"><button class="radio-btn" onclick="setAudit(this,'retreat','yes')">Yes</button><button class="radio-btn" onclick="setAudit(this,'retreat','no')">No</button></div>
+        </div>
+      </div>
+      <div class="sensory-tip" id="sensory-tip" style="display:none">
+        <div class="sensory-tip-text" id="sensory-tip-text"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">3</div>
+      <div>
+        <div class="section-title">Tools, processes & support</div>
+        <div class="section-sub">What's already working — and what's missing</div>
+      </div>
+    </div>
+    <div class="section-body">
+      <p class="section-intro">These are practical scaffolds that reduce cognitive load. Tick yes if you have them; no if they're a gap.</p>
+      <div class="tab-row">
+        <div class="tab active" onclick="switchTab('tab-tools',this)">Tools & process</div>
+        <div class="tab" onclick="switchTab('tab-social',this)">Social & accountability</div>
+      </div>
+      <div id="tab-tools" class="tab-panel active">
+        <div class="audit-list">
+          <div class="audit-item"><div class="audit-q">Do you have visible reminders — wall calendar, sticky notes, phone alarms — to track deadlines?<small>External memory aids reduce the burden on working memory</small></div><div class="radio-group"><button class="radio-btn" onclick="setAudit(this,'reminders','yes')">Yes</button><button class="radio-btn" onclick="setAudit(this,'reminders','no')">No</button></div></div>
+          <div class="audit-item"><div class="audit-q">Are your task instructions provided in writing rather than verbally only?<small>Written instructions remove reliance on working memory to hold multi-step directions</small></div><div class="radio-group"><button class="radio-btn" onclick="setAudit(this,'written','yes')">Yes</button><button class="radio-btn" onclick="setAudit(this,'written','no')">No</button></div></div>
+          <div class="audit-item"><div class="audit-q">Do you use structured templates for recurring tasks like emails or reports?<small>Templates eliminate the decision fatigue of starting from a blank page</small></div><div class="radio-group"><button class="radio-btn" onclick="setAudit(this,'templates','yes')">Yes</button><button class="radio-btn" onclick="setAudit(this,'templates','no')">No</button></div></div>
+          <div class="audit-item"><div class="audit-q">Have you scheduled protected focus time or "no distraction" blocks in your day?<small>Planned white space reduces the mental cost of unexpected interruptions</small></div><div class="radio-group"><button class="radio-btn" onclick="setAudit(this,'timeblocks','yes')">Yes</button><button class="radio-btn" onclick="setAudit(this,'timeblocks','no')">No</button></div></div>
+          <div class="audit-item"><div class="audit-q">Are your physical and digital files colour-coded or clearly labelled?<small>Visual organisation systems reduce the search time that derails momentum</small></div><div class="radio-group"><button class="radio-btn" onclick="setAudit(this,'colour','yes')">Yes</button><button class="radio-btn" onclick="setAudit(this,'colour','no')">No</button></div></div>
+        </div>
+      </div>
+      <div id="tab-social" class="tab-panel">
+        <div class="audit-list">
+          <div class="audit-item"><div class="audit-q">Do you have someone who checks in on your progress — a manager, mentor, or trusted colleague?<small>Body doubling and external accountability significantly improve task initiation and follow-through</small></div><div class="radio-group"><button class="radio-btn" onclick="setAudit(this,'accountability','yes')">Yes</button><button class="radio-btn" onclick="setAudit(this,'accountability','no')">No</button></div></div>
+          <div class="audit-item"><div class="audit-q">Do you receive positive acknowledgement for completed tasks, not just correction when things go wrong?<small>Positive feedback loops support motivation and self-regulation</small></div><div class="radio-group"><button class="radio-btn" onclick="setAudit(this,'feedback','yes')">Yes</button><button class="radio-btn" onclick="setAudit(this,'feedback','no')">No</button></div></div>
+          <div class="audit-item"><div class="audit-q">Have you communicated your preferred ways of receiving information (e.g. written vs verbal)?<small>Matching communication to your processing style reduces cognitive effort significantly</small></div><div class="radio-group"><button class="radio-btn" onclick="setAudit(this,'commpref','yes')">Yes</button><button class="radio-btn" onclick="setAudit(this,'commpref','no')">No</button></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">4</div>
+      <div>
+        <div class="section-title">Your personal strategy toolkit</div>
+        <div class="section-sub">Select what you'd like to explore or try first</div>
+      </div>
+    </div>
+    <div class="section-body">
+      <p class="section-intro">Based on what you've shared, these strategies are worth exploring. Select the ones that feel most realistic to start with — there's no right answer.</p>
+      <div class="strategy-cat">
+        <div class="cat-label">To support task initiation</div>
+        <div>
+          <span class="strat-tag" onclick="toggleStrat(this)">Choose one task per day</span>
+          <span class="strat-tag" onclick="toggleStrat(this)">Body doubling (work alongside someone)</span>
+          <span class="strat-tag" onclick="toggleStrat(this)">Use a 5-minute "start ritual"</span>
+          <span class="strat-tag" onclick="toggleStrat(this)">Brain dump before beginning</span>
+          <span class="strat-tag" onclick="toggleStrat(this)">Set a timer (not a deadline)</span>
+        </div>
+      </div>
+      <div class="strategy-cat">
+        <div class="cat-label">To maintain focus</div>
+        <div>
+          <span class="strat-tag" onclick="toggleStrat(this)">Oral motor input (gum, mints, cold drink)</span>
+          <span class="strat-tag" onclick="toggleStrat(this)">Fidget item or textured object</span>
+          <span class="strat-tag" onclick="toggleStrat(this)">Doodling or note-taking during meetings</span>
+          <span class="strat-tag" onclick="toggleStrat(this)">Noise-cancelling headphones or white noise</span>
+          <span class="strat-tag" onclick="toggleStrat(this)">Alerting scents (lemon, rosemary, mint)</span>
+          <span class="strat-tag" onclick="toggleStrat(this)">Posture changes and movement breaks</span>
+        </div>
+      </div>
+      <div class="strategy-cat">
+        <div class="cat-label">Tactical & planning tools</div>
+        <div>
+          <span class="strat-tag" onclick="toggleStrat(this)">Paper planner or colourful sticky notes</span>
+          <span class="strat-tag" onclick="toggleStrat(this)">Checklist templates for recurring tasks</span>
+          <span class="strat-tag" onclick="toggleStrat(this)">Automated bill pay and phone reminders</span>
+          <span class="strat-tag" onclick="toggleStrat(this)">Visualising the week ahead on Sunday</span>
+          <span class="strat-tag" onclick="toggleStrat(this)">Colour-coded calendar and filing system</span>
+        </div>
+      </div>
+      <div class="strategy-cat">
+        <div class="cat-label">Environment adjustments</div>
+        <div>
+          <span class="strat-tag" onclick="toggleStrat(this)">Reduce visual clutter on desk</span>
+          <span class="strat-tag" onclick="toggleStrat(this)">Move closer to natural light</span>
+          <span class="strat-tag" onclick="toggleStrat(this)">Identify a quiet retreat space</span>
+          <span class="strat-tag" onclick="toggleStrat(this)">Request written instructions at work</span>
+          <span class="strat-tag" onclick="toggleStrat(this)">Schedule one protected focus block daily</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="next-steps">
+    <div class="ns-title">Your selected strategies</div>
+    <div id="ns-content"><p class="ns-empty">Select strategies above to build your list</p></div>
+  </div>
+
+  <div class="cta-block">
+    <div class="cta-title">This is a starting point — not a full picture</div>
+    <div class="cta-text">A structured assessment with an occupational therapist can identify the specific sensory and executive function patterns underlying your challenges, and map them directly to adjustments that work for your life — at work and beyond. No formal diagnosis needed to get started.</div>
+    <a class="cta-btn" href="https://lorrainewelsh.co.uk" target="_blank" rel="noopener noreferrer">Book a FREE Consultation</a>
+  </div>
+
+  <p class="footer-note">This tool is designed for self-reflection and awareness. It is not a diagnostic tool. If you're looking for a full occupational therapy assessment, please get in touch directly.</p>
+</div>
+
+<script>
+const efState={};
+const auditState={};
+const stratState=new Set();
+
+function toggleEF(el){
+  const id=el.dataset.id;
+  if(!efState[id]){
+    efState[id]='selected';
+    el.classList.add('selected');
+    document.getElementById('focus-hint').style.display='block';
+  } else if(efState[id]==='selected'){
+    efState[id]='focus';
+    Object.keys(efState).forEach(k=>{
+      if(k!==id&&efState[k]==='focus'){
+        efState[k]='selected';
+        const prev=document.querySelector('.ef-item[data-id="'+k+'"]');
+        prev.classList.remove('focus-selected');
+        prev.classList.add('selected');
+      }
+    });
+    el.classList.remove('selected');
+    el.classList.add('focus-selected');
+  } else {
+    efState[id]=null;
+    el.classList.remove('selected','focus-selected');
+  }
+  updateProgress();
+}
+
+function setAudit(btn,key,val){
+  auditState[key]=val;
+  const parent=btn.closest('.audit-item');
+  parent.querySelectorAll('.radio-btn').forEach(b=>{b.className='radio-btn'});
+  btn.classList.add(val);
+  updateSensoryTip();
+  updateProgress();
+}
+
+function updateSensoryTip(){
+  const tip=document.getElementById('sensory-tip');
+  const txt=document.getElementById('sensory-tip-text');
+  const gaps=[];
+  if(auditState.sound==='yes') gaps.push('noise interference');
+  if(auditState.visual==='yes') gaps.push('visual distraction');
+  if(auditState.light==='no') gaps.push('lighting quality');
+  if(auditState.retreat==='no') gaps.push('access to a quiet space');
+  const sensoryAnswered=Object.keys(auditState).filter(k=>['sound','visual','light','retreat'].includes(k)).length;
+  if(gaps.length>0){
+    tip.style.display='flex';
+    txt.textContent='Your environment has potential barriers in: '+gaps.join(', ')+'. These are addressable with targeted reasonable adjustments.';
+  } else if(sensoryAnswered>=4){
+    tip.style.display='flex';
+    txt.textContent='Your sensory environment looks reasonably well-supported. The focus now shifts to your tools, processes, and personal strategies.';
+  } else {
+    tip.style.display='none';
+  }
+}
+
+function switchTab(panelId,tabEl){
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  tabEl.closest('.tab-row').querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById(panelId).classList.add('active');
+  tabEl.classList.add('active');
+}
+
+function toggleStrat(el){
+  const label=el.textContent.trim();
+  if(el.classList.contains('picked')){
+    el.classList.remove('picked');
+    stratState.delete(label);
+  } else {
+    el.classList.add('picked');
+    stratState.add(label);
+  }
+  renderNextSteps();
+  updateProgress();
+}
+
+function renderNextSteps(){
+  const cont=document.getElementById('ns-content');
+  if(stratState.size===0){
+    cont.innerHTML='<p class="ns-empty">Select strategies above to build your list</p>';
+    return;
+  }
+  let html='<div class="ns-list">';
+  stratState.forEach(s=>{html+='<div class="ns-pill"><div class="ns-dot"></div>'+s+'</div>';});
+  html+='</div>';
+  cont.innerHTML=html;
+}
+
+function updateProgress(){
+  const efDone=Object.values(efState).filter(Boolean).length>0?25:0;
+  const sensoryKeys=['sound','visual','light','retreat'];
+  const sensoryDone=sensoryKeys.filter(k=>auditState[k]).length>=3?25:0;
+  const toolKeys=['reminders','written','templates','timeblocks','colour','accountability','feedback','commpref'];
+  const toolDone=toolKeys.filter(k=>auditState[k]).length>=3?25:0;
+  const stratDone=stratState.size>0?25:0;
+  document.getElementById('progress').style.width=(efDone+sensoryDone+toolDone+stratDone)+'%';
+}
+</script>
+
+</body>
+</html>
