@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Before You Start a PIP — 5-Point HR Checklist | The Employee-Workplace Alignment Programme</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #fdf9f3;
+    --dark: #1c1b19;
+    --mid: #3d3b37;
+    --muted: #8a8680;
+    --border: #ddd9d1;
+    --red: #b83232;
+    --amber: #c27c1a;
+    --green: #2a7a52;
+    --blue: #2b5c8a;
+    --tick: #2a7a52;
+    --cross: #b83232;
+  }
+
+- { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+background: var(–cream);
+color: var(–dark);
+font-family: ‘Jost’, sans-serif;
+font-weight: 300;
+min-height: 100vh;
+}
+
+.page {
+max-width: 700px;
+margin: 0 auto;
+padding: 56px 28px 96px;
+}
+
+/* Header */
+.header-rule { border: none; border-top: 3px solid var(–dark); margin-bottom: 32px; }
+
+.header-inner {
+display: grid;
+grid-template-columns: 1fr auto;
+gap: 20px;
+align-items: start;
+margin-bottom: 32px;
+}
+
+.logo-text {
+font-family: ‘Jost’, sans-serif;
+font-size: 10px;
+font-weight: 500;
+letter-spacing: 0.2em;
+text-transform: uppercase;
+color: var(–muted);
+text-align: right;
+}
+
+.classification {
+font-family: ‘Jost’, sans-serif;
+font-size: 9px;
+font-weight: 600;
+letter-spacing: 0.22em;
+text-transform: uppercase;
+color: var(–red);
+border: 1px solid var(–red);
+padding: 4px 10px;
+display: inline-block;
+margin-bottom: 12px;
+}
+
+h1 {
+font-family: ‘Cormorant Garamond’, serif;
+font-size: clamp(34px, 7vw, 56px);
+font-weight: 600;
+line-height: 1.04;
+color: var(–dark);
+margin-bottom: 6px;
+}
+
+.h1-sub {
+font-family: ‘Cormorant Garamond’, serif;
+font-size: clamp(17px, 3vw, 22px);
+font-style: italic;
+color: var(–muted);
+margin-bottom: 28px;
+}
+
+.intro-block {
+background: var(–dark);
+color: #fff;
+padding: 24px 28px;
+margin-bottom: 44px;
+}
+
+.intro-block p {
+font-size: 14px;
+line-height: 1.75;
+color: rgba(255,255,255,0.78);
+}
+
+.intro-block strong { color: #fff; font-weight: 500; }
+
+/* Checklist */
+.checklist-header {
+display: grid;
+grid-template-columns: 1fr 80px 80px;
+gap: 8px;
+padding: 0 0 12px;
+border-bottom: 2px solid var(–dark);
+margin-bottom: 4px;
+}
+
+.col-label {
+font-size: 9px;
+font-weight: 600;
+letter-spacing: 0.18em;
+text-transform: uppercase;
+color: var(–muted);
+text-align: center;
+}
+
+.col-label:first-child { text-align: left; }
+
+.item {
+border-bottom: 1px solid var(–border);
+padding: 22px 0;
+display: grid;
+grid-template-columns: 1fr 80px 80px;
+gap: 8px;
+align-items: start;
+transition: background 0.15s;
+cursor: pointer;
+}
+
+.item:hover { background: rgba(0,0,0,0.02); }
+.item.checked-yes { background: rgba(42, 122, 82, 0.04); }
+.item.checked-no  { background: rgba(184, 50, 50, 0.04); }
+
+.item-num {
+font-family: ‘Cormorant Garamond’, serif;
+font-size: 13px;
+color: var(–muted);
+margin-bottom: 6px;
+}
+
+.item-q {
+font-family: ‘Cormorant Garamond’, serif;
+font-size: 19px;
+font-weight: 600;
+color: var(–dark);
+line-height: 1.3;
+margin-bottom: 8px;
+}
+
+.item-detail {
+font-size: 12.5px;
+line-height: 1.65;
+color: var(–muted);
+}
+
+.item-detail strong { color: var(–mid); font-weight: 500; }
+
+.risk-tag {
+display: inline-block;
+font-size: 9px;
+font-weight: 600;
+letter-spacing: 0.12em;
+text-transform: uppercase;
+padding: 3px 8px;
+border-radius: 2px;
+margin-top: 10px;
+}
+
+.risk-high { background: rgba(184,50,50,0.1); color: var(–red); }
+.risk-med  { background: rgba(194,124,26,0.1); color: var(–amber); }
+.risk-legal { background: rgba(43,92,138,0.1); color: var(–blue); }
+
+/* Radio columns */
+.radio-col {
+display: flex;
+justify-content: center;
+align-items: flex-start;
+padding-top: 4px;
+}
+
+.radio-box {
+width: 36px;
+height: 36px;
+border: 1.5px solid var(–border);
+border-radius: 4px;
+display: flex;
+align-items: center;
+justify-content: center;
+cursor: pointer;
+transition: all 0.2s;
+font-size: 18px;
+background: #fff;
+user-select: none;
+}
+
+.radio-box.yes-active { border-color: var(–green); background: rgba(42,122,82,0.08); }
+.radio-box.no-active  { border-color: var(–red); background: rgba(184,50,50,0.08); }
+
+/* Summary */
+.summary {
+margin-top: 40px;
+background: #fff;
+border: 1px solid var(–border);
+}
+
+.summary-head {
+background: var(–dark);
+color: #fff;
+padding: 16px 24px;
+font-family: ‘Cormorant Garamond’, serif;
+font-size: 18px;
+font-weight: 600;
+}
+
+.summary-body { padding: 24px; }
+
+.verdict {
+font-family: ‘Cormorant Garamond’, serif;
+font-size: 24px;
+font-weight: 600;
+margin-bottom: 12px;
+line-height: 1.25;
+}
+
+.verdict.safe { color: var(–green); }
+.verdict.caution { color: var(–amber); }
+.verdict.stop { color: var(–red); }
+
+.verdict-body {
+font-size: 13.5px;
+line-height: 1.7;
+color: var(–mid);
+margin-bottom: 20px;
+}
+
+.verdict-body strong { color: var(–dark); font-weight: 500; }
+
+.progress-row {
+display: flex;
+gap: 12px;
+align-items: center;
+margin-bottom: 20px;
+}
+
+.score-visual {
+display: flex;
+gap: 4px;
+}
+
+.score-pip {
+width: 28px;
+height: 8px;
+border-radius: 2px;
+background: var(–border);
+transition: background 0.3s;
+}
+
+.score-pip.yes-fill { background: var(–green); }
+.score-pip.no-fill  { background: var(–red); }
+
+.score-label {
+font-size: 12px;
+color: var(–muted);
+}
+
+.cta-strip {
+border-top: 1px solid var(–border);
+padding: 20px 24px;
+display: flex;
+align-items: center;
+justify-content: space-between;
+flex-wrap: wrap;
+gap: 16px;
+background: rgba(0,0,0,0.02);
+}
+
+.cta-text {
+font-size: 13px;
+color: var(–mid);
+max-width: 360px;
+line-height: 1.5;
+}
+
+.cta-btn {
+display: inline-block;
+background: var(–dark);
+color: #fff;
+font-family: ‘Jost’, sans-serif;
+font-size: 11px;
+font-weight: 500;
+letter-spacing: 0.1em;
+text-transform: uppercase;
+text-decoration: none;
+padding: 12px 24px;
+border-radius: 2px;
+white-space: nowrap;
+transition: opacity 0.2s;
+}
+
+.cta-btn:hover { opacity: 0.8; }
+
+/* Legal note */
+.legal {
+margin-top: 48px;
+padding: 20px 0 0;
+border-top: 1px solid var(–border);
+font-size: 11.5px;
+line-height: 1.65;
+color: var(–muted);
+}
+
+.legal strong { color: var(–mid); font-weight: 500; }
+.legal a { color: var(–dark); text-decoration: underline; text-underline-offset: 3px; }
+
+@media (max-width: 520px) {
+.checklist-header, .item { grid-template-columns: 1fr 60px 60px; }
+.radio-box { width: 30px; height: 30px; font-size: 15px; }
+}
+</style>
+
+</head>
+<body>
+<div class="page">
+
+  <hr class="header-rule">
+  <div class="header-inner">
+    <div>
+      <div class="classification">For HR use</div>
+      <h1>Before You<br>Start a PIP</h1>
+      <div class="h1-sub">A 5-point checklist for HR managers</div>
+    </div>
+    <div class="logo-text">The Employee-Workplace Alignment Programme<br>lorrainewelsh.co.uk<br><br>HCPC Registered<br>Occupational Therapist</div>
+  </div>
+
+  <div class="intro-block">
+    <p>Performance Improvement Plans carry <strong>significant legal and reputational risk</strong> when the underlying issue is a functional or neurological one rather than a conduct or attitude problem. Under the <strong>Equality Act 2010</strong>, neurodivergent conditions — including ADHD, autism, dyslexia, and dyspraxia — may qualify as disabilities, triggering a duty to make <strong>reasonable adjustments before</strong> any formal process begins. Work through each point below before proceeding.</p>
+  </div>
+
+  <!-- Checklist -->
+
+  <div class="checklist-header">
+    <div class="col-label">Checkpoint</div>
+    <div class="col-label">✓ Done</div>
+    <div class="col-label">✗ Not yet</div>
+  </div>
+
+  <div id="checklist">
+
+```
+<div class="item" data-index="0">
+  <div class="item-content">
+    <div class="item-num">01</div>
+    <div class="item-q">Has the work environment been formally reviewed for this employee?</div>
+    <div class="item-detail">
+      Not a generic risk assessment — a specific review of <strong>how this person's environment supports or undermines their function</strong>. Factors include noise level, desk placement, lighting, meeting formats, and the structure of communication and task assignment.
+      <br><span class="risk-tag risk-high">High risk if skipped</span>
+    </div>
+  </div>
+  <div class="radio-col">
+    <div class="radio-box" id="yes-0" onclick="tick(0,'yes')">—</div>
+  </div>
+  <div class="radio-col">
+    <div class="radio-box" id="no-0" onclick="tick(0,'no')">—</div>
+  </div>
+</div>
+
+<div class="item" data-index="1">
+  <div class="item-content">
+    <div class="item-num">02</div>
+    <div class="item-q">Has the employee had a structured opportunity to communicate barriers?</div>
+    <div class="item-detail">
+      Not a disciplinary meeting, and not simply "is there anything you want to tell us?" — a <strong>purposeful, psychologically safe conversation</strong> in which the employee could disclose difficulties, processing differences, or health factors without fear of it being used against them.
+      <br><span class="risk-tag risk-legal">Equality Act exposure</span>
+    </div>
+  </div>
+  <div class="radio-col">
+    <div class="radio-box" id="yes-1" onclick="tick(1,'yes')">—</div>
+  </div>
+  <div class="radio-col">
+    <div class="radio-box" id="no-1" onclick="tick(1,'no')">—</div>
+  </div>
+</div>
+
+<div class="item" data-index="2">
+  <div class="item-content">
+    <div class="item-num">03</div>
+    <div class="item-q">Has function — not just output — been assessed?</div>
+    <div class="item-detail">
+      Output metrics show <em>what</em> isn't happening; they don't explain <em>why</em>. An occupational therapy assessment examines <strong>executive function, sensory processing, and task organisation</strong> — identifying whether the gap is cognitive, environmental, motivational, or a combination.
+      <br><span class="risk-tag risk-med">Medium risk if skipped</span>
+    </div>
+  </div>
+  <div class="radio-col">
+    <div class="radio-box" id="yes-2" onclick="tick(2,'yes')">—</div>
+  </div>
+  <div class="radio-col">
+    <div class="radio-box" id="no-2" onclick="tick(2,'no')">—</div>
+  </div>
+</div>
+
+<div class="item" data-index="3">
+  <div class="item-content">
+    <div class="item-num">04</div>
+    <div class="item-q">Have reasonable adjustments been explored and documented — even if none were made?</div>
+    <div class="item-detail">
+      The duty to consider adjustments exists <strong>whether or not a formal diagnosis is in place</strong>. If you knew — or ought to have known — that the employee may have a disability, the duty is engaged. Documentation of this process is your primary defence in a tribunal claim.
+      <br><span class="risk-tag risk-legal">Equality Act exposure</span>
+    </div>
+  </div>
+  <div class="radio-col">
+    <div class="radio-box" id="yes-3" onclick="tick(3,'yes')">—</div>
+  </div>
+  <div class="radio-col">
+    <div class="radio-box" id="no-3" onclick="tick(3,'no')">—</div>
+  </div>
+</div>
+
+<div class="item" data-index="4">
+  <div class="item-content">
+    <div class="item-num">05</div>
+    <div class="item-q">Is the PIP process proportionate, specific, and achievable given what you now know?</div>
+    <div class="item-detail">
+      Generic targets — "improve time management," "meet all deadlines" — are legally and practically weak. Targets should be <strong>specific, measurable, supported</strong>, and take into account any functional or environmental factors already identified. An unachievable PIP, or one that doesn't account for known factors, may be viewed as constructive dismissal.
+      <br><span class="risk-tag risk-high">High risk if generic</span>
+    </div>
+  </div>
+  <div class="radio-col">
+    <div class="radio-box" id="yes-4" onclick="tick(4,'yes')">—</div>
+  </div>
+  <div class="radio-col">
+    <div class="radio-box" id="no-4" onclick="tick(4,'no')">—</div>
+  </div>
+</div>
+```
+
+  </div>
+
+  <!-- Summary -->
+
+  <div class="summary" id="summary" style="display:none">
+    <div class="summary-head">Your checklist result</div>
+    <div class="summary-body">
+      <div class="progress-row">
+        <div class="score-visual" id="scoreVisual"></div>
+        <div class="score-label" id="scoreLabel"></div>
+      </div>
+      <div class="verdict" id="verdictTitle"></div>
+      <div class="verdict-body" id="verdictBody"></div>
+    </div>
+    <div class="cta-strip">
+      <div class="cta-text" id="ctaText"></div>
+      <a>Book a consultation →</a>
+      <!-- Calendly link widget begin -->
+<link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+<script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
+<a href="" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/lorrainewelsh-ot'});return false;">Schedule time with me</a>
+<!-- Calendly link widget end -->
+      
+    </div>
+  </div>
+
+  <div class="legal">
+    <strong>Legal note:</strong> This checklist is an educational guide only and does not constitute legal advice. It reflects general principles under the Equality Act 2010 and ACAS guidance on capability procedures. For specific legal advice, consult a qualified employment lawyer. For occupational therapy workplace assessments, contact <a href="https://lorrainewelsh.co.uk">The Life Management Hub</a> (HCPC registered OT).
+  </div>
+
+</div>
+
+<script>
+  const state = Array(5).fill(null); // null | 'yes' | 'no'
+
+  function tick(index, val) {
+    state[index] = val;
+
+    const yesBox = document.getElementById('yes-' + index);
+    const noBox  = document.getElementById('no-' + index);
+    const item   = document.querySelector('[data-index="' + index + '"]');
+
+    yesBox.textContent = val === 'yes' ? '✓' : '—';
+    noBox.textContent  = val === 'no'  ? '✗' : '—';
+
+    yesBox.className = 'radio-box' + (val === 'yes' ? ' yes-active' : '');
+    noBox.className  = 'radio-box' + (val === 'no'  ? ' no-active'  : '');
+
+    item.className = 'item' + (val === 'yes' ? ' checked-yes' : val === 'no' ? ' checked-no' : '');
+
+    updateSummary();
+  }
+
+  function updateSummary() {
+    const answered = state.filter(s => s !== null).length;
+    if (answered === 0) { document.getElementById('summary').style.display = 'none'; return; }
+
+    const yesCount = state.filter(s => s === 'yes').length;
+    const noCount  = state.filter(s => s === 'no').length;
+
+    document.getElementById('summary').style.display = 'block';
+
+    // Score visual
+    const visual = document.getElementById('scoreVisual');
+    visual.innerHTML = state.map((s, i) => {
+      const cls = s === 'yes' ? 'yes-fill' : s === 'no' ? 'no-fill' : '';
+      return `<div class="score-pip ${cls}"></div>`;
+    }).join('');
+
+    document.getElementById('scoreLabel').textContent = `${yesCount} of ${answered} answered completed`;
+
+    const title = document.getElementById('verdictTitle');
+    const body  = document.getElementById('verdictBody');
+    const cta   = document.getElementById('ctaText');
+
+    if (answered < 5) {
+      title.className = 'verdict caution';
+      title.textContent = 'Complete all five checkpoints before deciding.';
+      body.innerHTML = 'Your summary will update as you work through each point.';
+      cta.textContent = 'A remote OT assessment can address points 3 and 4 in one session — usually within 5 working days.';
+      return;
+    }
+
+    if (yesCount === 5) {
+      title.className = 'verdict safe';
+      title.textContent = 'Your process appears defensible. Proceed with care.';
+      body.innerHTML = 'You have documented a thorough pre-PIP process — this significantly reduces your legal exposure and demonstrates good faith. Ensure all documentation is timestamped and stored securely. <strong>Review targets quarterly</strong> and remain open to adjustments if new information emerges.';
+      cta.textContent = 'If the PIP does not achieve the desired outcome, an OT assessment may still provide a route to resolution that avoids dismissal and tribunal risk.';
+    } else if (yesCount >= 3) {
+      title.className = 'verdict caution';
+      title.textContent = 'Proceed with caution — gaps in your process remain.';
+      body.innerHTML = `You have completed ${yesCount} of 5 checkpoints — but the <strong>uncompleted points carry real risk</strong>. A tribunal will look at the full picture, not just what you did. Address outstanding points before issuing any formal documentation.`;
+      cta.textContent = 'A remote OT functional assessment typically covers checkpoints 3 and 4 — and takes 2–3 hours with the employee. Results are provided in a written report within 5 working days.';
+    } else {
+      title.className = 'verdict stop';
+      title.textContent = 'Stop. Do not proceed with a PIP at this stage.';
+      body.innerHTML = `You have ${noCount} unresolved checkpoints — each of which represents significant legal and reputational exposure. <strong>Proceeding now could result in an Equality Act claim, tribunal costs, and irreversible damage to your employer brand.</strong> The cost of getting this wrong far exceeds the cost of taking a few weeks to do it properly.`;
+      cta.textContent = 'A remote OT workplace assessment takes 2–3 hours and can be completed within a week. It gives you a clinically evidenced foundation — and shows the employee you are taking their situation seriously.';
+    }
+  }
+</script>
+
+</body>
+</html>
