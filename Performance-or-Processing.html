@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Performance or Processing? A Manager's Guide | The Employee-Workplace Alignment Programme</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Epilogue:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0f1117;
+    --surface: #181c27;
+    --card: #1e2333;
+    --border: #2a3050;
+    --text: #e8eaf2;
+    --muted: #7a84a0;
+    --yes: #3dbf8a;
+    --no: #e05c5c;
+    --neutral: #5b8dee;
+    --accent: #f0a500;
+    --highlight: #ff6b35;
+  }
+
+- { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+background: var(–bg);
+color: var(–text);
+font-family: ‘Epilogue’, sans-serif;
+font-weight: 300;
+min-height: 100vh;
+padding: 48px 20px 80px;
+}
+
+.page { max-width: 720px; margin: 0 auto; }
+
+.tag {
+display: inline-block;
+background: var(–highlight);
+color: #fff;
+font-family: ‘Epilogue’, sans-serif;
+font-size: 10px;
+font-weight: 500;
+letter-spacing: 0.15em;
+text-transform: uppercase;
+padding: 5px 12px;
+border-radius: 2px;
+margin-bottom: 24px;
+}
+
+h1 {
+font-family: ‘Syne’, sans-serif;
+font-size: clamp(30px, 6vw, 50px);
+font-weight: 800;
+line-height: 1.06;
+color: var(–text);
+margin-bottom: 20px;
+}
+
+h1 span { color: var(–accent); }
+
+.intro {
+font-size: 15px;
+line-height: 1.72;
+color: var(–muted);
+margin-bottom: 44px;
+max-width: 560px;
+}
+
+.intro strong { color: var(–text); font-weight: 500; }
+
+/* Flow */
+.flow { display: flex; flex-direction: column; gap: 0; }
+
+.node {
+background: var(–card);
+border: 1px solid var(–border);
+border-radius: 8px;
+padding: 24px 28px;
+position: relative;
+transition: border-color 0.25s;
+}
+
+.node.active { border-color: var(–accent); }
+.node.resolved { border-color: var(–yes); }
+.node.ot-node { border-color: var(–neutral); }
+
+.node-num {
+font-size: 10px;
+font-weight: 500;
+letter-spacing: 0.12em;
+text-transform: uppercase;
+color: var(–muted);
+margin-bottom: 10px;
+}
+
+.node-q {
+font-family: ‘Syne’, sans-serif;
+font-size: 16px;
+font-weight: 700;
+color: var(–text);
+margin-bottom: 6px;
+line-height: 1.3;
+}
+
+.node-sub {
+font-size: 13px;
+color: var(–muted);
+line-height: 1.6;
+margin-bottom: 18px;
+}
+
+.btn-row { display: flex; gap: 10px; flex-wrap: wrap; }
+
+.btn {
+font-family: ‘Epilogue’, sans-serif;
+font-size: 12px;
+font-weight: 500;
+letter-spacing: 0.06em;
+text-transform: uppercase;
+border: none;
+padding: 10px 22px;
+border-radius: 4px;
+cursor: pointer;
+transition: opacity 0.15s, transform 0.15s;
+}
+
+.btn:hover { opacity: 0.85; transform: translateY(-1px); }
+.btn-yes { background: var(–yes); color: #0f1117; }
+.btn-no  { background: var(–no); color: #fff; }
+.btn-sometimes { background: var(–neutral); color: #fff; }
+.btn-restart { background: var(–border); color: var(–muted); margin-top: 12px; }
+
+.connector {
+display: flex;
+justify-content: center;
+padding: 8px 0;
+}
+
+.connector svg { opacity: 0.3; }
+
+/* Outcome boxes */
+.outcome {
+display: none;
+border-radius: 8px;
+padding: 28px;
+animation: popIn 0.35s cubic-bezier(.34,1.56,.64,1) both;
+}
+
+@keyframes popIn {
+from { opacity: 0; transform: scale(0.95); }
+to { opacity: 1; transform: scale(1); }
+}
+
+.outcome.performance {
+background: rgba(224, 92, 92, 0.1);
+border: 1px solid var(–no);
+}
+
+.outcome.mixed {
+background: rgba(91, 141, 238, 0.1);
+border: 1px solid var(–neutral);
+}
+
+.outcome.ot {
+background: rgba(240, 165, 0, 0.1);
+border: 1px solid var(–accent);
+}
+
+.outcome-label {
+font-size: 10px;
+font-weight: 500;
+letter-spacing: 0.14em;
+text-transform: uppercase;
+margin-bottom: 12px;
+}
+
+.outcome.performance .outcome-label { color: var(–no); }
+.outcome.mixed .outcome-label { color: var(–neutral); }
+.outcome.ot .outcome-label { color: var(–accent); }
+
+.outcome-title {
+font-family: ‘Syne’, sans-serif;
+font-size: 22px;
+font-weight: 800;
+color: var(–text);
+margin-bottom: 12px;
+line-height: 1.2;
+}
+
+.outcome-body {
+font-size: 14px;
+line-height: 1.7;
+color: var(–muted);
+margin-bottom: 20px;
+}
+
+.outcome-body strong { color: var(–text); font-weight: 500; }
+
+.outcome-cta {
+display: inline-block;
+background: var(–accent);
+color: #0f1117;
+font-family: ‘Epilogue’, sans-serif;
+font-size: 12px;
+font-weight: 500;
+letter-spacing: 0.08em;
+text-transform: uppercase;
+text-decoration: none;
+padding: 12px 28px;
+border-radius: 4px;
+transition: opacity 0.2s;
+margin-top: 4px;
+}
+
+.outcome-cta:hover { opacity: 0.85; }
+
+.progress-bar {
+height: 3px;
+background: var(–border);
+border-radius: 2px;
+margin-bottom: 36px;
+overflow: hidden;
+}
+
+.progress-fill {
+height: 100%;
+background: linear-gradient(90deg, var(–accent), var(–highlight));
+border-radius: 2px;
+transition: width 0.4s ease;
+width: 0%;
+}
+
+.footer {
+margin-top: 56px;
+padding-top: 24px;
+border-top: 1px solid var(–border);
+font-size: 12px;
+color: var(–muted);
+line-height: 1.6;
+}
+
+.footer a { color: var(–accent); text-decoration: none; }
+
+/* Score indicator */
+.score-row {
+display: flex;
+gap: 6px;
+margin-bottom: 20px;
+flex-wrap: wrap;
+}
+
+.score-dot {
+width: 10px;
+height: 10px;
+border-radius: 50%;
+background: var(–border);
+transition: background 0.3s;
+}
+
+.score-dot.ot { background: var(–accent); }
+.score-dot.perf { background: var(–no); }
+</style>
+
+</head>
+<body>
+<div class="page">
+  <div class="tag">The Employee-Workplace Alignment Programme — Manager's Resource</div>
+  <h1>Performance<br>or <span>Processing?</span></h1>
+  <p class="intro">Before escalating to a PIP or formal capability process, work through these five questions. They take under two minutes — and could save you from an expensive mistake. <strong>Answer honestly based on what you've actually observed.</strong></p>
+
+  <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+
+  <div class="flow" id="flow">
+
+```
+<!-- Q1 -->
+<div class="node active" id="q1">
+  <div class="node-num">Question 1 of 5</div>
+  <div class="node-q">Is the performance problem consistent across all tasks — or specific to certain types?</div>
+  <div class="node-sub">e.g. they struggle with planning, prioritising, or switching between tasks — but are capable or even excellent at structured, hands-on, or routine work.</div>
+  <div class="btn-row">
+    <button class="btn btn-yes" onclick="answer(1,'ot')">Specific to certain tasks</button>
+    <button class="btn btn-no" onclick="answer(1,'perf')">Across everything</button>
+  </div>
+</div>
+
+<div class="connector"><svg width="2" height="32" viewBox="0 0 2 32"><line x1="1" y1="0" x2="1" y2="32" stroke="white" stroke-width="1.5"/></svg></div>
+
+<!-- Q2 -->
+<div class="node" id="q2" style="display:none">
+  <div class="node-num">Question 2 of 5</div>
+  <div class="node-q">Has performance noticeably declined after a role change, promotion, or change in working conditions?</div>
+  <div class="node-sub">e.g. moved to hybrid/remote, changed line manager, new office layout, increased workload complexity — and they seemed to manage before this shift.</div>
+  <div class="btn-row">
+    <button class="btn btn-yes" onclick="answer(2,'ot')">Yes — clear change point</button>
+    <button class="btn btn-no" onclick="answer(2,'perf')">No — always been an issue</button>
+    <button class="btn btn-sometimes" onclick="answer(2,'ot')">Possibly / not sure</button>
+  </div>
+</div>
+
+<div class="connector" id="c2" style="display:none"><svg width="2" height="32" viewBox="0 0 2 32"><line x1="1" y1="0" x2="1" y2="32" stroke="white" stroke-width="1.5"/></svg></div>
+
+<!-- Q3 -->
+<div class="node" id="q3" style="display:none">
+  <div class="node-num">Question 3 of 5</div>
+  <div class="node-q">Have you observed signs of effort and intent — but inconsistent follow-through?</div>
+  <div class="node-sub">e.g. they clearly care, arrive prepared or engaged, but miss deadlines, lose track of tasks, go blank under pressure, or have very good and very bad days with no obvious reason.</div>
+  <div class="btn-row">
+    <button class="btn btn-yes" onclick="answer(3,'ot')">Yes — this fits</button>
+    <button class="btn btn-no" onclick="answer(3,'perf')">No — seems disengaged or indifferent</button>
+  </div>
+</div>
+
+<div class="connector" id="c3" style="display:none"><svg width="2" height="32" viewBox="0 0 2 32"><line x1="1" y1="0" x2="1" y2="32" stroke="white" stroke-width="1.5"/></svg></div>
+
+<!-- Q4 -->
+<div class="node" id="q4" style="display:none">
+  <div class="node-num">Question 4 of 5</div>
+  <div class="node-q">Has the employee mentioned stress, overwhelm, concentration difficulties, or said they "don't know why" they're struggling?</div>
+  <div class="node-sub">Or have you noticed physical signs — difficulty in noisy or busy environments, avoidance of certain meeting formats, visible fatigue or distraction disproportionate to the situation?</div>
+  <div class="btn-row">
+    <button class="btn btn-yes" onclick="answer(4,'ot')">Yes — some of this</button>
+    <button class="btn btn-no" onclick="answer(4,'perf')">No — nothing like this</button>
+  </div>
+</div>
+
+<div class="connector" id="c4" style="display:none"><svg width="2" height="32" viewBox="0 0 2 32"><line x1="1" y1="0" x2="1" y2="32" stroke="white" stroke-width="1.5"/></svg></div>
+
+<!-- Q5 -->
+<div class="node" id="q5" style="display:none">
+  <div class="node-num">Question 5 of 5</div>
+  <div class="node-q">Has the employee ever disclosed — formally or informally — that they may be neurodivergent, or asked about workplace adjustments?</div>
+  <div class="node-sub">This includes ADHD, autism, dyslexia, dyspraxia — diagnosed, self-identified, or suspected. Even informal mentions carry legal weight under the Equality Act 2010.</div>
+  <div class="btn-row">
+    <button class="btn btn-yes" onclick="answer(5,'ot')">Yes — or I suspect it</button>
+    <button class="btn btn-no" onclick="answer(5,'perf')">No — not to my knowledge</button>
+  </div>
+</div>
+
+<!-- Outcome -->
+<div id="outcome" style="margin-top:24px;display:none">
+  <div class="outcome performance" id="out-performance">
+    <div class="outcome-label">Likely Indication</div>
+    <div class="outcome-title">This may be a conduct or capability issue</div>
+    <div class="outcome-body">
+      Your answers suggest the issue is less likely to be driven by underlying functional or neurological factors. A structured performance management process — with clear expectations, support, and documentation — may be the appropriate route.<br><br>
+      <strong>However:</strong> even where performance management is warranted, an OT assessment can still provide useful evidence and reduce tribunal risk. If the employee later discloses a diagnosis, a documented functional assessment strengthens your position considerably.
+    </div>
+    <button class="btn btn-restart" onclick="restart()">Start again</button>
+  </div>
+
+  <div class="outcome mixed" id="out-mixed">
+    <div class="outcome-label">Likely Indication</div>
+    <div class="outcome-title">The picture is mixed — proceed carefully</div>
+    <div class="outcome-body">
+      Some answers point to functional or processing difficulties; others suggest performance factors may also be at play. Rushing into a PIP here carries real risk — both to the employee's wellbeing and your legal exposure.<br><br>
+      <strong>Recommended next step:</strong> commission a functional OT assessment before deciding on any formal process. This gives you an objective, clinical evidence base — and shows good faith in meeting your reasonable adjustment duty.
+    </div>
+    <a href="https://lorrainewelsh.co.uk" class="outcome-cta">Book an OT assessment →</a><br>
+    <button class="btn btn-restart" onclick="restart()">Start again</button>
+  </div>
+
+  <div class="outcome ot" id="out-ot">
+    <div class="outcome-label">Strong Indication</div>
+    <div class="outcome-title">This looks like a processing problem, not a performance problem</div>
+    <div class="outcome-body">
+      The pattern you've described — inconsistent output, task-specific difficulties, effort without follow-through, sensitivity to environment — is consistent with executive function or sensory processing difficulties. These are clinical presentations, not attitude problems.<br><br>
+      <strong>Starting a PIP now would likely make things worse</strong> — and could expose your organisation to an Equality Act claim if the employee later receives a diagnosis.<br><br>
+      An occupational therapy assessment looks at <em>function</em> rather than diagnosis. It identifies exactly what's breaking down and why — and produces practical, implementable workplace recommendations.
+    </div>
+    <a>Book a remote OT assessment →</a><br>
+    <!-- Calendly link widget begin -->
+<link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+<script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
+<a href="" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/lorrainewelsh-ot'});return false;">Schedule time with me</a>
+<!-- Calendly link widget end -->
+</div>
+  </div>
+</div>
+```
+
+  </div>
+
+  <div class="footer">
+    This tool is a clinical screening guide, not a diagnostic instrument. It is provided by <a href="https://lorrainewelsh.co.uk">Lorraine Welsh OT</a>, an independent occupational therapy practice (HCPC registered). For formal workplace assessments, contact us directly.
+  </div>
+</div>
+
+<script>
+  let scores = { ot: 0, perf: 0 };
+  let step = 1;
+
+  function answer(q, type) {
+    scores[type]++;
+    step++;
+
+    const progress = (q / 5) * 100;
+    document.getElementById('progressFill').style.width = progress + '%';
+
+    // Disable buttons on current node
+    const node = document.getElementById('q' + q);
+    node.querySelectorAll('.btn').forEach(b => b.disabled = true);
+    node.classList.remove('active');
+    node.classList.add('resolved');
+
+    if (q < 5) {
+      const next = document.getElementById('q' + (q + 1));
+      const connector = document.getElementById('c' + (q + 1));
+      if (connector) connector.style.display = 'flex';
+      next.style.display = 'block';
+      next.classList.add('active');
+      setTimeout(() => next.scrollIntoView({ behavior: 'smooth', block: 'center' }), 100);
+    } else {
+      document.getElementById('progressFill').style.width = '100%';
+      showOutcome();
+    }
+  }
+
+  function showOutcome() {
+    const outcomeEl = document.getElementById('outcome');
+    outcomeEl.style.display = 'block';
+
+    let outId;
+    if (scores.ot >= 4) {
+      outId = 'out-ot';
+    } else if (scores.ot >= 2) {
+      outId = 'out-mixed';
+    } else {
+      outId = 'out-performance';
+    }
+
+    document.getElementById(outId).style.display = 'block';
+    setTimeout(() => outcomeEl.scrollIntoView({ behavior: 'smooth', block: 'start' }), 150);
+  }
+
+  function restart() {
+    scores = { ot: 0, perf: 0 };
+    step = 1;
+    document.getElementById('progressFill').style.width = '0%';
+
+    for (let i = 1; i <= 5; i++) {
+      const node = document.getElementById('q' + i);
+      node.classList.remove('resolved', 'active');
+      node.querySelectorAll('.btn').forEach(b => b.disabled = false);
+      if (i === 1) { node.style.display = 'block'; node.classList.add('active'); }
+      else node.style.display = 'none';
+
+      const c = document.getElementById('c' + i);
+      if (c) c.style.display = 'none';
+    }
+
+    document.getElementById('outcome').style.display = 'none';
+    ['out-performance','out-mixed','out-ot'].forEach(id => document.getElementById(id).style.display = 'none');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
+
+</body>
+</html>
